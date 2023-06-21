@@ -17,7 +17,6 @@ public class MultiThreadSevrver extends Thread {
 
     public static void main(String[] args) {
         new MultiThreadSevrver().start();
-        ;
     }
 
     @Override

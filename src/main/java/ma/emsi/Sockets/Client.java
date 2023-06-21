@@ -44,10 +44,6 @@ public class Client {
 
 
             pw.println(message);
-
-            String response = serverOutput.readLine();
-
-            System.out.println(response);
         }
 
         socket.close();

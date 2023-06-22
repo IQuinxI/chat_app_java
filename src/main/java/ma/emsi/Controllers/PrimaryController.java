@@ -1,7 +1,8 @@
-package ma.emsi;
+package ma.emsi.Controllers;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
+import ma.emsi.App;
 
 public class PrimaryController {
 

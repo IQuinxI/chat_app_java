@@ -21,7 +21,7 @@ public class ChatManager {
         binding();
         setItemtoUsername();
     }
-
+    
     private void binding() {
         chatListView.setItems(chatItems);
     }

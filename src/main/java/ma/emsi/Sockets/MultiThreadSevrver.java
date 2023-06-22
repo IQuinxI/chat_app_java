@@ -14,6 +14,8 @@ import java.util.List;
 public class MultiThreadSevrver extends Thread {
 
     private List<Communication> connectedClients = new ArrayList<>();
+        private static int PORT = 8080;
+
 
     public static void main(String[] args) {
         new MultiThreadSevrver().start();
@@ -21,7 +23,7 @@ public class MultiThreadSevrver extends Thread {
 
     @Override
     public void run() {
-        try(ServerSocket serverSocket = new ServerSocket(8080)) {
+        try(ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Waiting for a connection ...");
             while (true) {
                 Socket socket = serverSocket.accept();
@@ -53,7 +55,7 @@ public class MultiThreadSevrver extends Thread {
                 InputStreamReader isr = new InputStreamReader(is); // collects bites until it has a character
                 BufferedReader clientResponse = new BufferedReader(isr); // collects a string of characters
 
-                OutputStream serverResponse = socket.getOutputStream();
+                // OutputStream serverResponse = socket.getOutputStream();
 
                 while(true) {
                     String request  = clientResponse.readLine();

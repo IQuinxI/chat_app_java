@@ -10,10 +10,12 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
+    private static String SERVER_ADDRESS = "127.0.0.1";
+    private static int PORT = 8080;
     public static void main(String[] args) throws IOException {
         System.out.println("Welcome to your client terminal");
 
-        Socket socket = new Socket("127.0.0.1", 8080);
+        Socket socket = new Socket(SERVER_ADDRESS, PORT);
 
         InputStream inputStream = socket.getInputStream();
         InputStreamReader iStreamReader = new InputStreamReader(inputStream);

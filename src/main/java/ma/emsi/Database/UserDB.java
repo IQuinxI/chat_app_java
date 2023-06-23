@@ -18,6 +18,10 @@ public class UserDB {
     static final String USER = "root";
     static final String PASS = "";
 
+
+
+
+
     public void insertDummyData() {
         clean();
         String sql = "INSERT INTO user (id, friend_id, firstName, lastName, username, password) VALUES (?,null,?,?,?,?)";
@@ -44,6 +48,10 @@ public class UserDB {
         }
     }
 
+
+
+
+
     private void clean() {
         String sql = "delete from user";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
@@ -53,6 +61,10 @@ public class UserDB {
             e.printStackTrace();
         }
     }
+
+
+
+
 
     // retrive friends list based on the current user
     public List<String> getFriendsList() {

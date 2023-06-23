@@ -41,8 +41,6 @@ public class Client {
             String message = scanner.nextLine();
 
             if(message.equals("exit")) break;
-
-
             pw.println(message);
         }
 

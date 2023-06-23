@@ -1,7 +1,6 @@
 package ma.emsi.Managers;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import ma.emsi.Models.User;
 

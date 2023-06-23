@@ -9,20 +9,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import ma.emsi.Managers.ChatManager;
 import ma.emsi.Managers.FriendsManager;
 import ma.emsi.Models.Chat;
-import ma.emsi.Models.User;
+import ma.emsi.Sockets.UserClient;
+import ma.emsi.StateManagement.Session;
 import ma.emsi.Database.UserDB;
 
 public class ChatHubController implements Initializable {
     @FXML
     private ListView<String> friendsListView;
     private ObservableList<String> friendsItems = FXCollections.observableArrayList();
-    private int counter = 0;
 
     @FXML
     private ListView<Chat> chatListView;
@@ -30,24 +31,40 @@ public class ChatHubController implements Initializable {
 
     private FriendsManager friendsManager;
     private ChatManager chatManager;
+    private UserClient userClient;
+
+    @FXML
+    private TextField messageTextField;
+
+    @FXML 
+    private VBox chatSideVBox;
+
+    private String selectedFriend = null;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         friendsManager = new FriendsManager(friendsListView, friendsItems);
         chatManager = new ChatManager(chatListView, chatItems);
+        System.out.println("username: " + Session.getCurrentUser().getId());
+        userClient = new UserClient();
 
         // Retrieve friends list
-        friendsItems.addAll(new UserDB().getFriendsList());
+        List<String> friends = new UserDB().getFriendsList();
+        friendsItems.addAll(friends);
 
         // initializes the ListView for the friends
         friendsManager.initialize();
         chatManager.initialize();
 
         addFriendsOnClickListener();
+
+
     }
 
      private void addFriendsOnClickListener() {
-        friendsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            // User selectedUser = newValue;        
+        friendsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {            // User selectedUser = newValue;        
+            chatSideVBox.setVisible(true);
+            selectedFriend = newValue;
             // if(selectedUser != null)    
             //     chatManager.updateChat(selectedUser);
         });
@@ -55,10 +72,15 @@ public class ChatHubController implements Initializable {
 
 
     @FXML
-    private void addFriend() throws IOException {
-
-        // friendsItems.add(new User(counter, "Yassine", "Lahrache", "Quinx","pwd", null));
-        // friendsItems.add(new User(counter, "Yassine", "Lahrache", "Boogie","pwd", null));
-
+    private void sendMessage() {
+        if(selectedFriend == null) return;
+        int selectedFriendId = new UserDB().getIdWithUsername(selectedFriend);
+        
+        try {
+            String request = selectedFriendId+":"+messageTextField.getText();
+            userClient.sendMessage(request);            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

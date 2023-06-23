@@ -2,9 +2,10 @@ package ma.emsi.Database;
 
 
 import ma.emsi.Models.User;
-import ma.emsi.StateManagement.State;
+import ma.emsi.StateManagement.Session;
 
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -69,23 +70,38 @@ public class UserDB {
 
     private String getUsernameWithId(int id) {
         String sql = "select username from user where id=?";
-        String username = "";
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
             PreparedStatement stmt = conn.prepareStatement(sql);) {
             stmt.setInt(1, id);
             ResultSet userRs = stmt.executeQuery();
             while(userRs.next()) 
-                username = userRs.getString(1);
+                return userRs.getString(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return username;
+        return "";
+    }
+
+    public int getIdWithUsername(String username) {
+        String sql = "select id from user where username=? LIMIT 1";
+
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            PreparedStatement stmt = conn.prepareStatement(sql);) {
+                stmt.setString(1, username);
+                ResultSet userIdRes = stmt.executeQuery();
+                while(userIdRes.next())
+                    return userIdRes.getInt(1);
+                    
+            }catch(SQLException e) {
+                e.printStackTrace();
+            }
+        return -1;
     }
 
     private List<Integer> getFriendsIds() {
         String sql = "select friend_id from user where username=?";
-        User currentUser = State.getCurrentUser();
+        User currentUser = Session.getCurrentUser();
 
         List<Integer> friendsIds = new ArrayList<>();
 
@@ -101,5 +117,27 @@ public class UserDB {
         }
         
         return friendsIds;
+    }
+
+    public void Login(String username, String password) {
+        String sql = "select * from user where username=? and password=? LIMIT 1";
+        
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+
+            ResultSet results = stmt.executeQuery();
+            while(results.next()) {
+                    Session.setCurrentUser(new User(results.getInt(1), 
+                        results.getString(3), results.getString(4), 
+                        results.getString(5), results.getString(6),
+                        null));
+                    System.out.println("Setting the currentUser: "+LocalDateTime.now());}
+                    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

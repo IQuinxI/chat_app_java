@@ -8,7 +8,6 @@ import java.util.List;
 public class ServerClient extends Thread {
     private List<Communication> connectedClients = new ArrayList<>();
     private static int PORT = 8080;
-    
 
     public static void main(String[] args) {
         new ServerClient().start();
@@ -60,7 +59,7 @@ public class ServerClient extends Thread {
 
                 OutputStream serverResponse = socket.getOutputStream();
                 PrintWriter pw = new PrintWriter(serverResponse, true);
-
+                // listens to any incoming requests and forwards them to the handleRequest class
                 while (true) {
                     String request = clientResponse.readLine();
                     if (request != null) {
@@ -77,15 +76,20 @@ public class ServerClient extends Thread {
             String[] data = request.split(":", 2);
             int recipientUserId = Integer.parseInt(data[0]);
             String message = data[1];
+            // when the request is tagged with a -1, that's an intialization request and it
+            // sets the userId for the communication class
             if (recipientUserId == -1) {
                 setUserId(Integer.parseInt(message));
-                System.out.println("Initialized User successfully: "+getUserId());
+                System.out.println("Initialized User successfully: " + getUserId());
             } else {
+                // when the request is tagged with another number, it points towards the recepient
+                // the recepient id is compared inside the list, if found a message is sent, if not 
+                // an error message is sent back to the sender
                 for (Communication client : connectedClients) {
                     if (client.getUserId() == recipientUserId) {
                         try {
                             PrintWriter recipientPw = new PrintWriter(client.socket.getOutputStream(), true);
-                            recipientPw.println(message);
+                            recipientPw.println("MSG:"+message);
                             pw.println("Message sent successfully");
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -93,11 +97,10 @@ public class ServerClient extends Thread {
                         return;
                     }
                 }
-                pw.println("Recipient user not found");
+                pw.println("NOT_FOUND:Recipient user not found");
             }
 
         }
 
-        
     }
 }

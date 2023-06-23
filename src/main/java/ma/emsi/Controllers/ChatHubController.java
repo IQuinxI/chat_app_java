@@ -26,8 +26,8 @@ public class ChatHubController implements Initializable {
     private ObservableList<String> friendsItems = FXCollections.observableArrayList();
 
     @FXML
-    private ListView<Chat> chatListView;
-    private ObservableList<Chat> chatItems = FXCollections.observableArrayList();
+    private ListView<String> chatListView;
+    private ObservableList<String> chatItems = FXCollections.observableArrayList();
 
     private FriendsManager friendsManager;
     private ChatManager chatManager;
@@ -45,8 +45,8 @@ public class ChatHubController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         friendsManager = new FriendsManager(friendsListView, friendsItems);
         chatManager = new ChatManager(chatListView, chatItems);
-        System.out.println("username: " + Session.getCurrentUser().getId());
-        userClient = new UserClient();
+
+        userClient = new UserClient(chatManager);
 
         // Retrieve friends list
         List<String> friends = new UserDB().getFriendsList();
@@ -78,6 +78,7 @@ public class ChatHubController implements Initializable {
         
         try {
             String request = selectedFriendId+":"+messageTextField.getText();
+            chatManager.updateChat(messageTextField.getText());
             userClient.sendMessage(request);            
         } catch (Exception e) {
             e.printStackTrace();

@@ -8,6 +8,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import ma.emsi.Managers.ChatManager;
 import ma.emsi.StateManagement.Session;
 
 public class UserClient {
@@ -21,9 +24,9 @@ public class UserClient {
     private OutputStream clientOutput;
     private PrintWriter pw;
 
-    public UserClient() {
+    public UserClient(ChatManager chatManager) {
         initialize();
-        startThread();
+        startThread(chatManager);
     }
 
     public void initialize() {
@@ -37,19 +40,25 @@ public class UserClient {
             clientOutput = socket.getOutputStream();
             pw = new PrintWriter(clientOutput, true);
 
-            pw.println("-1:"+Session.getCurrentUser().getId());
+            // sends an init i aliaztaion message to the Server
+            pw.println("-1:" + Session.getCurrentUser().getId());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void startThread() {
+    public void startThread(ChatManager chatManager) {
         Thread serverRespoThread = new Thread(() -> {
             try {
+                // Listens to any incoming traffic from the server
                 while (true) {
                     String response = serverOutput.readLine();
-                    if (response != null)
+                    if (response != null) {
+                        Platform.runLater(() -> {
+                            if(isMessage(response)) chatManager.updateChat(response.split(":", 2)[1]);
+                        });
                         System.out.println(response);
+                    }
                 }
 
             } catch (IOException e) {
@@ -63,6 +72,11 @@ public class UserClient {
         pw.println(request);
     }
 
+    private boolean isMessage(String message) {
+        String[] data = message.split(":", 2);
+        if(data[0].equals("MSG")) return true;
+        return false;
+    }
     // public void close() {
     // try {
     // socket.close();

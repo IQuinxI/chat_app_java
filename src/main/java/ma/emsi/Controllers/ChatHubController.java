@@ -65,8 +65,6 @@ public class ChatHubController implements Initializable {
         friendsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {            // User selectedUser = newValue;        
             chatSideVBox.setVisible(true);
             selectedFriend = newValue;
-            // if(selectedUser != null)    
-            //     chatManager.updateChat(selectedUser);
         });
     }
 

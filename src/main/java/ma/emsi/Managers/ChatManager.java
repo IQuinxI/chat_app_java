@@ -1,12 +1,8 @@
 package ma.emsi.Managers;
 
-import java.util.Date;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import ma.emsi.Models.Chat;
-import ma.emsi.Models.User;
 
 public class ChatManager {
     private ListView<String> chatListView;
@@ -29,7 +25,6 @@ public class ChatManager {
     
 
     public void updateChat(String message) {
-        // TODO: retrieve the messages from the Chat table, using the current user and friend (receiver)
         chatItems.add(message);
     }
 }

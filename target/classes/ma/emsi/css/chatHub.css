@@ -1,0 +1,90 @@
+/* Styling for the chatting interface */
+
+/* VBox styles */
+VBox {
+    -fx-alignment: center;
+    -fx-pref-height: 385;
+    -fx-pref-width: 589;
+    -fx-spacing: 20;
+    -fx-background-color: #F5F5F5; /* Light gray background */
+}
+
+/* SplitPane styles */
+SplitPane {
+    -fx-pref-height: 350;
+    -fx-pref-width: 549;
+}
+
+/* AnchorPane styles */
+AnchorPane {
+    -fx-min-height: 0;
+    -fx-min-width: 0;
+}
+
+/* Label styles */
+Label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Dark gray text color */
+}
+
+/* ListView styles */
+ListView {
+    -fx-pref-height: 200;
+    -fx-pref-width: 100;
+    -fx-background-color: #FFFFFF; /* White background */
+    -fx-control-inner-background: transparent;
+    -fx-border-color: transparent; /* Transparent border color */
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Dark gray text color */
+}
+
+/* ListView cell styles */
+ListView .list-cell {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-text-fill: #333333; /* Dark gray text color */
+}
+
+/* ListView cell hover styles */
+ListView .list-cell:hover {
+    -fx-background-color: #EAEAEA; /* Light gray background on hover */
+}
+
+/* ListView cell selected styles */
+ListView .list-cell:selected {
+    -fx-background-color: #CCCCCC; /* Medium gray background on selection */
+}
+
+
+/* TextField styles */
+TextField {
+    -fx-pref-height: 50;
+    -fx-pref-width: 381;
+    -fx-background-color: #FFFFFF; /* White background */
+    -fx-border-color: #D3D3D3; /* Light gray border color */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Dark gray text color */
+}
+
+/* Button styles */
+Button {
+    -fx-text-fill: #FFFFFF; /* White text color */
+    -fx-background-color: #333333; /* Dark gray background */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
+}
+
+/* Button hover styles */
+Button:hover {
+    -fx-background-color: #555555; /* Slightly lighter dark gray background */
+}
+
+/* Button pressed styles */
+Button:pressed {
+    -fx-background-color: #222222; /* Even darker gray background */
+}

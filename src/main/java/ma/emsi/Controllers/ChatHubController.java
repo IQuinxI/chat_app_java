@@ -84,4 +84,9 @@ public class ChatHubController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void cleanUp() {
+        userClient.close();
+    }
+    
 }

@@ -55,7 +55,8 @@ public class UserClient {
                     String response = serverOutput.readLine();
                     if (response != null) {
                         Platform.runLater(() -> {
-                            if(isMessage(response)) chatManager.updateChat(response.split(":", 2)[1]);
+                            if (isMessage(response))
+                                chatManager.updateChat(response.split(":", 2)[1]);
                         });
                         System.out.println(response);
                     }
@@ -74,15 +75,20 @@ public class UserClient {
 
     private boolean isMessage(String message) {
         String[] data = message.split(":", 2);
-        if(data[0].equals("MSG")) return true;
+        if (data[0].equals("MSG"))
+            return true;
         return false;
     }
-    // public void close() {
-    // try {
-    // socket.close();
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
+
+    public void close() {
+        if (socket == null)
+            return;
+            
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

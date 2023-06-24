@@ -1,0 +1,58 @@
+/* Styling for the login interface */
+
+/* VBox styles */
+VBox {
+    -fx-alignment: center;
+    -fx-pref-height: 297;
+    -fx-pref-width: 555;
+    -fx-spacing: 20;
+    -fx-background-color: #F5F5F5; /* Light gray background */
+}
+
+/* Label styles */
+Label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* TextField styles */
+TextField {
+    -fx-prompt-text-fill: #808080; /* Gray prompt text color */
+    -fx-max-width: 250;
+    -fx-background-color: #FFFFFF; /* White background */
+    -fx-border-color: #D3D3D3; /* Light gray border color */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* PasswordField styles */
+PasswordField {
+    -fx-prompt-text-fill: #808080; /* Gray prompt text color */
+    -fx-max-width: 250;
+    -fx-background-color: #FFFFFF; /* White background */
+    -fx-border-color: #D3D3D3; /* Light gray border color */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Button styles */
+Button {
+    -fx-text-fill: #FFFFFF; /* White text color */
+    -fx-background-color: #333333; /* Dark gray background */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
+}
+
+/* Button hover styles */
+Button:hover {
+    -fx-background-color: #555555; /* Slightly lighter dark gray background */
+}
+
+/* Button pressed styles */
+Button:pressed {
+    -fx-background-color: #222222; /* Even darker gray background */
+}

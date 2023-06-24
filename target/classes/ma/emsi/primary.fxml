@@ -7,9 +7,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="297.0" prefWidth="555.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.emsi.Controllers.PrimaryController">
+<VBox id="login_bakcground" alignment="CENTER" prefHeight="297.0" prefWidth="555.0" spacing="20.0" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.emsi.Controllers.PrimaryController">
    <children>
-      <Label text="LOGIN" />
+      <Label id="login_label" text="LOGIN" />
       <TextField fx:id="usernameTextField" promptText="Username" style="-fx-max-width: 250;" />
       <PasswordField fx:id="passwordPasswordField" promptText="Password" style="-fx-max-width: 250;" />
       <Button fx:id="loginButton" onAction="#switchToSecondary" text="Login" />
